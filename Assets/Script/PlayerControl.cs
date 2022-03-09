@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl2 : MonoBehaviour
+public class PlayerControl : MonoBehaviour
 {
     // Start is called before the first frame update
     public float speed;
+    public KeyCode UpInput;
+    public KeyCode DownInput;
     void Start()
     {
         
@@ -20,11 +22,11 @@ public class PlayerControl2 : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.I))
+        if (Input.GetKey(UpInput))
         {
             this.transform.Translate(0f,speed,0f);
         }
-        if (Input.GetKey(KeyCode.K))
+        if (Input.GetKey(DownInput))
         {
             this.transform.Translate(0f,-speed,0f);
         }

@@ -1,37 +1,53 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Versioning;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
-    public GameObject Player1Display;
-    public GameObject Player2Display;
-    private int P1Score;
-    private int P2Score;
+    public Text[] PlayerDisplay;
+    private int[] PlayerScore;
+
+    public GameManager GMRef;
+
     void Start()
     {
-        
+        PlayerScore = new int[PlayerDisplay.Length];
     }
 
     // Update is called once per frame
     void Update()
     {
-        Player1Display.GetComponent<Text>().text = Convert.ToString(P1Score);
-        Player2Display.GetComponent<Text>().text = Convert.ToString(P2Score);
+        
+        
     }
 
-    public void Score(int player)
+    private void OnEnable()
     {
-        if (player == 2)
+        GMRef.ScorePoint += GoalScoreEvent;
+    }
+
+    private void OnDisable()
+    {
+        GMRef.ScorePoint -= GoalScoreEvent;
+    }
+
+    public void GoalScoreEvent(int playerscore)
+    {
+        if (playerscore == 2)
         {
-            P1Score += 1;
+            PlayerScore[0] += 1;
+            PlayerDisplay[0].text = Convert.ToString(PlayerScore[0]);
         }
         else
         {
-            P2Score += 1;
+            PlayerScore[1] += 1;
+            PlayerDisplay[1].text = Convert.ToString(PlayerScore[1]);
         }
     }
 
+    
 }

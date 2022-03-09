@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl1 : MonoBehaviour
+public class Goal : MonoBehaviour
 {
+    public int GoalIndex;
+    public delegate void Simple(int Id);
+    public event Simple GoalScore;
     // Start is called before the first frame update
-    public float speed;
     void Start()
     {
         
@@ -18,15 +20,11 @@ public class PlayerControl1 : MonoBehaviour
         
     }
 
-    private void FixedUpdate()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (Input.GetKey(KeyCode.W))
+        if (collision.gameObject.CompareTag("Ball"))
         {
-            this.transform.Translate(0f,speed,0f);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            this.transform.Translate(0f,-speed,0f);
+            GoalScore?.Invoke(GoalIndex);
         }
     }
 }
