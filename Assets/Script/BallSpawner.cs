@@ -8,6 +8,10 @@ public class BallSpawner : MonoBehaviour
 {
     public GameObject BallObject;
     public GameManager GMRef;
+
+    private int count = 0;
+
+    private int ballcount = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,8 +36,15 @@ public class BallSpawner : MonoBehaviour
 
     public void SpawnBall(int nothing)
     {
-        GameObject Ball = BallObject;
-        Instantiate(Ball);
-        Ball.transform.position = new Vector3(0, Random.Range(-2, 2), 0);
+        count += 1;
+        if (count >= ballcount)
+        {
+            count = 0;
+            ballcount += 1;
+            GameObject Ball = BallObject;
+            Instantiate(Ball);
+            Ball.transform.position = new Vector3(0, Random.Range(-2, 2), 0);
+        }
+        
     }
 }
